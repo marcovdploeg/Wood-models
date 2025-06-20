@@ -1,8 +1,8 @@
 # Wood-models
 
 This repository contains the code for a decision tree classifier machine learning model. 
-Currently, it only deals with classification problems, uses the Gini impurity to improve the tree, and a maximum depth can be given at which it stops building the tree.
-In the future, other evaluation metrics and options like a minimum amount of samples per leaf could be added.
+Currently, it only deals with classification problems, uses the Gini impurity to improve the tree, and a maximum depth, minimum samples per split and minimum samples per leaf can be given to control the tree.
+In the future, other evaluation metrics and options like other score criteria could be added.
 Additionally, an algorithm to deal with regression problems could be added.
 I also plan to expand this into a random forest model, using this tree algorithm as its basis.
 

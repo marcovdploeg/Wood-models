@@ -5,19 +5,25 @@ import numpy as np
 import pandas as pd
 
 class DecisionTreeClassifier:
-    def __init__(self, max_depth=None, verbose=False, threshold=0.0):
+    def __init__(self, max_depth=None, min_samples_split=2, min_samples_leaf=1, verbose=False, threshold=0.0):
         """
         Initialize the Decision Tree Classifier.
 
         Parameters:
         max_depth (int, optional): Maximum depth of the tree.
                                    Default is None (no limit).
+        min_samples_split (int, optional): Minimum number of samples required
+                                     to split an internal node. Default is 2.
+        min_samples_leaf (int, optional): Minimum number of samples required
+                                         to be at a leaf node. Default is 1.
         verbose (bool, optional): If True, print the reasons for stopping.
                                   Default is False.
         threshold (float, optional): The threshold to compare against
                                      for increasing score. Default=0.0.
         """
         self.max_depth = max_depth
+        self.min_samples_split = min_samples_split
+        self.min_samples_leaf = min_samples_leaf
         self.verbose = verbose
         self.threshold = threshold
         self.tree = None  # to hold the tree structure after fitting
@@ -231,11 +237,24 @@ class DecisionTreeClassifier:
                 print(f"Stop at depth {depth} due to max_depth limit.")
             majority_class = y.mode()[0]
             return {'class': majority_class, 'is_leaf': True}
+        elif len(y) < self.min_samples_split:
+            if self.verbose:
+                print(f"Stopping at depth {depth} due to min_samples_split limit.")
+            majority_class = y.mode()[0]
+            return {'class': majority_class, 'is_leaf': True}
 
-        # For the Gini score increase criterium, need to do the split first
+        # For the Gini score increase and min_samples_leaf criteria, 
+        # we need to do the split first
         column, split_value = self.determine_best_split(X, y)
         X_left, X_right, y_left, y_right = \
             self.split_node_given_best_split(X, y, column, split_value)
+        if len(y_left) < self.min_samples_leaf or \
+           len(y_right) < self.min_samples_leaf:
+            if self.verbose:
+                print(f"Stopping at depth {depth} due to min_samples_leaf limit.")
+            majority_class = y.mode()[0]
+            return {'class': majority_class, 'is_leaf': True}
+        
         better_score = \
             self.check_impurity_decrease_threshold(y, y_left, y_right)
         if not better_score:
