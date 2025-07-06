@@ -90,7 +90,7 @@ class DecisionTreeClassifierModified:
         unique values, this is not useful, so return the median instead.
 
         Parameters:
-        X_feature (array-like): Array of feature values.
+        X_feature (Series): Series of feature values.
 
         Returns:
         (list or float): List of split points [first quantile, median, third quantile],
@@ -112,12 +112,11 @@ class DecisionTreeClassifierModified:
         continuous features.
         
         Parameters:
-        X_feature (array-like): Array of feature values.
-        y (array-like): Labels.
+        X_feature (Series): Series of feature values.
+        y (Series): Labels.
         
         Returns:
-        array-like: Two arrays representing the left and right splits 
-                    for X_feature and y.
+        Series: Two Series representing the left and right splits for y.
         (float or None): The best split value for continuous features,
                          None for boolean features.
         """
@@ -160,7 +159,7 @@ class DecisionTreeClassifierModified:
         
         Parameters:
         X (DataFrame): Feature dataframe.
-        y (array-like): Labels.
+        y (Series): Labels.
         
         Returns:
         tuple: The best feature and the best split value 
@@ -205,14 +204,14 @@ class DecisionTreeClassifierModified:
         the predetermined best split point.
         
         Parameters:
-        X (array-like): Array of feature values.
-        y (array-like): Labels.
+        X (DataFrame): Array of feature values.
+        y (Series): Labels.
         best_split_value (float or None): The best split value for
                    continuous features, None for boolean features.
         
         Returns:
-        array-like: Four arrays representing the left and right splits
-                    for X and for y.
+        DataFrame: Two DataFrames representing the left and right splits for X.
+        Series: Two Series representing the left and right splits for y.
         """
         X_feature = X[feature]
         if best_split_value is None:
@@ -261,7 +260,7 @@ class DecisionTreeClassifierModified:
 
         Parameters:
         X (DataFrame): Feature dataframe.
-        y (array-like): Labels.
+        y (Series): Labels.
 
         Returns:
         dict: A dictionary representing the decision tree.
@@ -334,7 +333,7 @@ class DecisionTreeClassifierModified:
         
         Parameters:
         X (DataFrame): Feature dataframe.
-        y (array-like): Labels.
+        y (Series): Labels.
         """
         self.tree = self.build_tree(X, y)
     
