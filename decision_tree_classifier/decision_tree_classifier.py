@@ -1,4 +1,4 @@
-# The Python file making a class for to the decision tree classifier 
+# The Python file making a class for the decision tree classifier 
 # model thought up in the notebook.
 
 import numpy as np
