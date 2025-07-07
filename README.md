@@ -11,5 +11,5 @@ The decision\_tree\_classifier and decision\_tree\_regressor directories contain
 The random\_forest\_classifier directory similarly contains a Jupyter notebook explaining how the random forest works and a Python file with a class that contains the forest algorithm and could be imported into other scripts. 
 Additionally, there is a modified decision tree algorithm which is needed for the random forest implementation.
 
-Tests of both trees show that they generate predictions that are about as good as Sklearn's DecisionTreeClassifier, but they are slower.
+Tests of both trees show that they generate predictions that are about as good as Sklearn's DecisionTreeClassifier/DecisionTreeRegressor, but they are slower.
 Tests of the random forest similarly show that it generates predictions that are about as good as Sklearn's RandomForestClassifier, but with many trees it is much slower.
